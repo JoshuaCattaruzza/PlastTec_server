@@ -73,7 +73,7 @@ function initial() {
 const app = express();
 app.listen(PORT, () => console.log('Listening on port ' + PORT)); //listen accetta due param, il primo specifica la potra su cui ascolta il secondo può essere una funzione
 app.use(cors(corsOptions)); //Passing cors options to cors and app
-app.use(express.static(path.join("C:/Users/joshu/Desktop/Lavoro/PlastTec/PlastTec_client", 'build')));
+app.use(express.static(path.join("/var/www/html/PlastTec_client", 'build')));
 
 //app.use(express.static('public')); //Per gestire i file statici, quali immagini, file CSS e file JavaScript, utilizzare la funzione middleware integrata express.static in Express.
 app.use(express.json({ limit: '1mb' })); //Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing.
@@ -85,7 +85,7 @@ app.use('/api/machine', machineRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/dialog', dialogRoutes);
 app.get('/*', function (req, res) {
-	res.sendFile(path.join("C:/Users/joshu/Desktop/Lavoro/PlastTec/PlastTec_client", 'build', 'index.html'));
+	res.sendFile(path.join("/var/www/html/PlastTec_client", 'build', 'index.html'));
   });
 // require('./routes/authRoute')(app);
 // require('./routes/userRoute')(app);
