@@ -5,6 +5,8 @@ const cors = require('cors');
 const bodyparser = require('body-parser'); //import bp middleware
 const { json } = require('body-parser');
 const path = require('path');
+const https = require('https');
+const fs = require('fs');
 //----------IMPORT OF ROUTES---------------------------------------------------
 const taskRoutes = require('./routes/taskRoute');
 const userRoutes = require('./routes/userRoute');
@@ -76,8 +78,6 @@ const options = {
 	cert: fs.readFileSync('./cert.pem'),
 	passphrase: 'thereisnogod',
 };
-const https = require('https');
-const fs = require('fs');
 https
 	.createServer(options, app)
 	.listen(PORT, () => console.log('Listening on port' + PORT));
