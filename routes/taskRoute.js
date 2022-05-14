@@ -33,8 +33,27 @@ router.get('/', (req, res) => {
 		if (err) {
 			res.json(err);
 		} else {
+			var returnArr = [];
+			data.forEach(task => {
+				if (task.active === true)
+					returnArr.push(task);
+			});
+			res.json(returnArr);
+		}
+	});
+});
+router.get('/closed', (req, res) => {
 
-			res.json(data);
+	taskModel.find({}, (err, data) => {
+		if (err) {
+			res.json(err);
+		} else {
+			var returnArr = [];
+			data.forEach(task => {
+				if (task.active === false)
+					returnArr.push(task);
+			});
+			res.json(returnArr);
 		}
 	});
 });
@@ -42,11 +61,6 @@ router.patch("/close/:_id", (req, res) =>{
 	var id = { _id: req.params._id }
 	taskModel.findById(id).exec((err, task)=>{
 		var status = task.active;
-		// console.log(game);
-		// game.players.forEach(player => {
-		// 	player.in_game=false
-		// });
-		//SETTARE A IN_GAME:FALSE TUTTI I PLAYER DELLA PARTITA
 		taskModel.findByIdAndUpdate(id, {active: !status, end: new Date()}, (err) =>{
 			if (err) {
 				return res.send(err);
@@ -59,7 +73,18 @@ router.patch("/close/:_id", (req, res) =>{
 		
 	)})
 	
-})
+});
+
+router.delete('/:_id', (req, res) => {
+	const Task = req.params._id;
+	console.log(Task)
+	taskModel
+		.findByIdAndDelete(Task)
+		.then(res.json({ message: 'task deleted succesfully' }))
+		.catch((err) => {
+			res.status(400).send(err.json());
+		});
+});
 
 
 
@@ -149,14 +174,6 @@ router.patch("/close/:_id", (req, res) =>{
 // 	});
 // });
 
-// router.delete('/:_id', (req, res) => {
-// 	const Game = req.params._id;
-// 	gameModel
-// 		.findByIdAndDelete(Game)
-// 		.then(res.json({ message: 'game deleted succesfully' }))
-// 		.catch((err) => {
-// 			res.status(400).send(err.json());
-// 		});
-// });
+
 
 module.exports = router;

@@ -2,6 +2,7 @@ const { authJwt } = require('../middleware');
 const controller = require('../controllers/userController');
 const express = require('express');
 const router = express.Router();
+const userModel = require('../models/userModel');
 
 router.use(function (req, res, next) {
 	res.header(
@@ -11,21 +12,33 @@ router.use(function (req, res, next) {
 	next();
 });
 
-router.get('/public', controller.allAccess);
 
-router.get('/user', [authJwt.verifyToken], controller.userBoard);
+router.get('/', (req, res) => {
+	userModel.find({}, (err, data) => {
+		if (err) {
+			res.json(err);
+		} else {
+			res.json(data);
+		}
+	});
+});
 
-router.get(
-	'/mod',
-	[authJwt.verifyToken, authJwt.isModerator],
-	controller.moderatorBoard
-);
 
-router.get(
-	'/admin',
-	[authJwt.verifyToken, authJwt.isAdmin],
-	controller.adminBoard
-);
+// router.get('/public', controller.allAccess);
+
+// router.get('/user', [authJwt.verifyToken], controller.userBoard);
+
+// router.get(
+// 	'/mod',
+// 	[authJwt.verifyToken, authJwt.isModerator],
+// 	controller.moderatorBoard
+// );
+
+// router.get(
+// 	'/admin',
+// 	[authJwt.verifyToken, authJwt.isAdmin],
+// 	controller.adminBoard
+// );
 module.exports = router;
 
 // const express = require('express');
@@ -60,15 +73,7 @@ module.exports = router;
 // 			res.status(400).send(err);
 // 		});
 // });
-// router.get('/', (req, res) => {
-// 	userModel.find({}, (err, data) => {
-// 		if (err) {
-// 			res.json(err);
-// 		} else {
-// 			res.json(data);
-// 		}
-// 	});
-// });
+
 // router.delete('/:_id', (req, res) => {
 // 	const User = req.params._id;
 // 	userModel
