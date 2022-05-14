@@ -73,15 +73,15 @@ function initial() {
 }
 //----------SERVER--------------------------------------------------------------
 const app = express();
-const options = {
-	key: fs.readFileSync('./key.pem'),
-	cert: fs.readFileSync('./cert.pem'),
-	passphrase: 'thereisnogod',
-};
-https
-	.createServer(options, app)
-	.listen(PORT, () => console.log('Listening on port' + PORT));
-// app.listen(PORT, () => console.log('Listening on port ' + PORT)); //listen accetta due param, il primo specifica la potra su cui ascolta il secondo può essere una funzione
+// const options = {
+// 	key: fs.readFileSync('./key.pem'),
+// 	cert: fs.readFileSync('./cert.pem'),
+// 	passphrase: 'thereisnogod',
+// };
+// https
+// 	.createServer(options, app)
+// 	.listen(PORT, () => console.log('Listening on port' + PORT));
+app.listen(PORT, () => console.log('Listening on port ' + PORT)); //listen accetta due param, il primo specifica la potra su cui ascolta il secondo può essere una funzione
 app.use(cors(corsOptions)); //Passing cors options to cors and app
 app.use(express.static(path.join("/var/www/html/PlastTec_client", 'build')));
 
