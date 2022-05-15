@@ -34,18 +34,13 @@ createTaskIntent.intent('StatusReport', (conv, param, context) => {
     console.log(param);
     var returnArr = [];
     return taskModel.find({}).then((data) => {
-		if (err) {
-			console.log(err);
-		} else {
-			
-			data.forEach(task => {
-				if (task.active === true)
-					returnArr.push(task);
-			});
-            console.log(returnArr);
-            conv.ask(`There are ${returnArr.length} active tasks at the moment`);
-		}
-	})
+        data.forEach(task => {
+            if (task.active === true)
+                returnArr.push(task);
+        });
+        console.log(returnArr);
+        conv.ask(`There are ${returnArr.length} active tasks at the moment`);
+		})
     // conv.ask(`There are ${returnArr.length} active tasks at the moment`);
    });
 
