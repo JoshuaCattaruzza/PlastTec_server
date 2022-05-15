@@ -7,9 +7,9 @@ const createTaskIntent = dialogflow({debug: false});
 var Task = {};
 
 createTaskIntent.intent('CreaNuovaTask', (conv, param, context) => {
-    console.log(param);
+    console.log(param.date_time);
     Task.expiry_date = param.date_time;
-    
+    console.log(Task);
     conv.ask("Task created");
    });
 createTaskIntent.intent('CreaNuovaTaskAddName', (conv, param, context) => {
