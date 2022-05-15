@@ -10,14 +10,14 @@ createTaskIntent.intent('CreaNuovaTask', (conv, param, context) => {
     console.log(param);
     Task.expiry_date = param.date;
     console.log(Task);
-    conv.ask("Task created, what would you like to call it?");
+    conv.ask(`Task created, what would you like to call it?`);
    });
 createTaskIntent.intent('CreaNuovaTaskAddName', (conv, param, context) => {
     console.log(param);
     Task.name = param.taskname;
     Task.description = param.taskdescription;
 
-    conv.ask("Added task name and description, who should I assign the task to?");
+    conv.ask(`Task name is ${param.taskname}, who should I assign the task to?`);
 
    });
 createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
