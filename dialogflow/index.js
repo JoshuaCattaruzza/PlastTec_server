@@ -4,19 +4,8 @@ const taskModel = require('../models/taskModel');
 
 const createTaskIntent = dialogflow({debug: false});
 
+var Task = {};
 
-	var Task = {
-		name: req.body.name,
-		description: req.body.description,
-		estimated_time: req.body.estimated_time,
-		expiry_date: req.body.expiry_date,
-		assigned_to_machine: req.body.assigned_to_machine,
-		assignee: req.body.assignee,
-		assigner: req.body.assigner,
-		planned_date:  req.body.planned_date,
-		active: req.body.active
-	};
-	
 createTaskIntent.intent('CreaNuovaTask', (conv, param, context) => {
     console.log(param);
     Task.expiry_date = param.date_time;
