@@ -30,7 +30,7 @@ createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
     inputData.save();
 
    });
-createTaskIntent.intent('StatusReport', (conv, param, context) => {
+createTaskIntent.intent('StatusReport', async (conv, param, context) => {
     console.log(param);
     var returnArr = [];
     await taskModel.find({}, (err, data) => {
