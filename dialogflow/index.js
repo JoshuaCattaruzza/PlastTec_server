@@ -33,7 +33,7 @@ createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
 createTaskIntent.intent('StatusReport', (conv, param, context) => {
     console.log(param);
     var returnArr = [];
-    return taskModel.find({}, (err, data) => {
+    return taskModel.find({}).then((data) => {
 		if (err) {
 			console.log(err);
 		} else {
