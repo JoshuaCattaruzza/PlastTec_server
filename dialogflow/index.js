@@ -8,7 +8,7 @@ var Task = {};
 
 createTaskIntent.intent('CreaNuovaTask', (conv, param, context) => {
     console.log(param);
-    Task.expiry_date = param;
+    Task.expiry_date = param.date;
     console.log(Task);
     conv.ask("Task created");
    });
