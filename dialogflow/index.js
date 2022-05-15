@@ -42,6 +42,7 @@ createTaskIntent.intent('StatusReport', (conv, param, context) => {
 				if (task.active === true)
 					returnArr.push(task);
 			});
+            console.log(returnArr);
             conv.ask(`There are ${returnArr.length} active tasks at the moment`);
 		}
 	});
