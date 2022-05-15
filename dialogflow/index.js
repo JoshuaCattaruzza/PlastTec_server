@@ -4,7 +4,7 @@ const taskModel = require('../models/taskModel');
 
 const createTaskIntent = dialogflow({debug: false});
 
-createTaskIntent.intent('Crea Task', (conv, param, context) => {
+createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
     console.log("conv: ")
     console.log(conv);
     console.log("param: ");
