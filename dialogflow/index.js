@@ -30,6 +30,23 @@ createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
     inputData.save();
 
    });
+createTaskIntent.intent('StatusReport', (conv, param, context) => {
+    console.log(param);
+
+    taskModel.find({}, (err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			var returnArr = [];
+			data.forEach(task => {
+				if (task.active === true)
+					returnArr.push(task);
+			});
+            conv.ask(`There are ${returnArr.length} active tasks at the moment`);
+		}
+	});
+    
+   });
 
 
 module.exports = {

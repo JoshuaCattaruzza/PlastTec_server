@@ -3,6 +3,6 @@ const router = express.Router();
 
 const {createTaskIntent} = require("../dialogflow/index");
 
-router.post('/create',createTaskIntent);
+router.post('/',createTaskIntent);
 
 module.exports = router;
