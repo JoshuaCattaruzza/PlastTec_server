@@ -23,6 +23,7 @@ createTaskIntent.intent('CreaNuovaTaskAddName', (conv, param, context) => {
 createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
     console.log(param);
     Task.assignee = param.person.name;
+    Task.active = true;
     const inputData = new taskModel(Task);
     console.log(inputData);
     conv.ask(`Assigned task to ${param.person.name}`);
