@@ -1,18 +1,20 @@
 const {dialogflow} = require('actions-on-google');
+const mongoose = require("mongoose");
+const taskModel = require('../models/taskModel');
 
-const statusIntent = dialogflow({debug: false});
+const createTaskIntent = dialogflow({debug: false});
 
-statusIntent.intent('status', (conv, param, context) => {
+createTaskIntent.intent('Crea Task', (conv, param, context) => {
     console.log("conv: ")
     console.log(conv);
     console.log("param: ");
     console.log(param);
     console.log("context: " + context);
-    conv.ask("Hai chiesto lo status");
+    conv.ask("Ho creato una task");
 
    });
 
 
 module.exports = {
-    statusIntent
+    createTaskIntent
 }
