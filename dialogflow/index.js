@@ -26,12 +26,7 @@ createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
     const inputData = new taskModel(Task);
     console.log(inputData);
     conv.ask(`Assigned task to ${param.person.name}`);
-    inputData
-		.save()
-		.then(()=> { res.status(200).send({message: "task created"})})
-		.catch((err) => {
-			 res.status(400).send(err);
-		});
+    inputData.save();
 
    });
 
