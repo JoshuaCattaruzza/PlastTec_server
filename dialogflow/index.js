@@ -30,10 +30,10 @@ createTaskIntent.intent('CreaNuovaTaskAddAssignee', (conv, param, context) => {
     inputData.save();
 
    });
-createTaskIntent.intent('StatusReport', async (conv, param, context) => {
+createTaskIntent.intent('StatusReport', (conv, param, context) => {
     console.log(param);
     var returnArr = [];
-    await taskModel.find({}, (err, data) => {
+    taskModel.find({}, (err, data) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -44,8 +44,8 @@ createTaskIntent.intent('StatusReport', async (conv, param, context) => {
 			});
             console.log(returnArr);
 		}
-	});
-    conv.ask(`There are ${returnArr.length} active tasks at the moment`);
+	}).then(()=> conv.ask(`There are ${returnArr.length} active tasks at the moment`));
+    // conv.ask(`There are ${returnArr.length} active tasks at the moment`);
    });
 
 
