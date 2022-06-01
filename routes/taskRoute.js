@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
 		} else {
 			var returnArr = [];
 			data.forEach(task => {
-				if (task.active === true)
+				if (task.status.active === true)
 					returnArr.push(task);
 			});
 			res.json(returnArr);
