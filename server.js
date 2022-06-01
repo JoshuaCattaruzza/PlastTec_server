@@ -97,19 +97,3 @@ app.use('/api/dialog', dialogRoutes);
 app.get('/*', function (req, res) {
 	res.sendFile(path.join("/var/www/html/PlastTec_client", 'build', 'index.html'));
   });
-// require('./routes/authRoute')(app);
-// require('./routes/userRoute')(app);
-
-//--------HTTPS STUFF---------------------------------------------------------------
-//da gestire con SSL di terze parti
-// const options = {
-// 	key: fs.readFileSync('./keys/client-key.pem'),
-// 	cert: fs.readFileSync('./keys/client-cert.pem'),
-// };
-// const https = require('https');
-// const fs = require('fs');
-// ------------
-// https
-// 	.createServer(options, app)
-// 	.listen(443, () => console.log('Listening on port 443'));
-//------------
