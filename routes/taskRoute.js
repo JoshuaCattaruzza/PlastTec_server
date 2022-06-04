@@ -6,7 +6,7 @@ const taskModel = require('../models/taskModel');
 router.post('/create', (req, res) => {
 	const Task = {
 		name: req.body.name,
-		description: req.body.name,
+		description: req.body.description,
 		estimated_time: req.body.estimated_time,
 		expiry_date: req.body.expiry_date,
 		note: req.body.note,
