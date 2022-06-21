@@ -74,19 +74,38 @@ router.get('/closed', (req, res) => {
 	});
 });
 
-router.patch("/close/:_id", (req, res) =>{
+router.patch("/updateStatus/:_id", (req, res) =>{
+
 	var id = { _id: req.params._id }
-	taskModel.findById(id).exec((err, task)=>{
-		var status = task.active;
-		taskModel.findByIdAndUpdate(id, {active: !status, end: new Date()}, (err) =>{
-			if (err) {
-				return res.send(err);
-				
-			} else {
-				return res.send({ message: `changed task status to ${!status}`});		
-			}
+	var updatedStatus = {...req.body};
+	var allowedUpdate = 0;
+
+	for (const key in updatedStatus) {
+		if (Object.hasOwnProperty.call(updatedStatus, key)) {
+			const element = updatedStatus[key];
+			if(element)
+				allowedUpdate++;
 		}
-	)})
+	}
+
+	if(allowedUpdate === 1) {
+		taskModel.findByIdAndUpdate(
+			id, 
+			{status: updatedStatus},
+			{ upsert: true, setDefaultsOnInsert: true }, 
+			(err) => {
+				if (err) {
+					return res.send(err);
+				} 
+				else {
+					return res.send({ message: `updated task`});		
+				}
+			}
+		)
+	}
+	else {
+		res.status(400).send({ message: `bad request`});		
+	}
 });
 
 router.delete('/:_id', (req, res) => {
