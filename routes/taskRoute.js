@@ -79,7 +79,7 @@ router.get('/', (req, res) => {
 		} else {
 			var returnArr = [];
 			data.forEach(task => {
-				if (task.status.active === true && task.status.pending === false && task.status.done === false)
+				if (task.status.done === false)
 					returnArr.push(task);
 			});
 			res.json(returnArr);
