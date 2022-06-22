@@ -44,6 +44,34 @@ router.post('/create', (req, res) => {
 	});
 });
 
+router.get('/mobile/', (req, res) => {
+	taskModel.find({}, (err, data) => {
+		if (err) {
+			res.json(err);
+		} else {
+			var returnArr = [];
+			data.forEach(task => {
+				if (task.status.pending === false && task.status.done === false)
+					returnArr.push(task);
+			});
+			res.json(returnArr);
+		}
+	});
+});
+router.get('/mobile/pending', (req, res) => {
+	taskModel.find({}, (err, data) => {
+		if (err) {
+			res.json(err);
+		} else {
+			var returnArr = [];
+			data.forEach(task => {
+				if (task.status.active === false && task.status.pending === true && task.status.done === false)
+					returnArr.push(task);
+			});
+			res.json(returnArr);
+		}
+	});
+});
 router.get('/', (req, res) => {
 	taskModel.find({}, (err, data) => {
 		if (err) {
@@ -51,7 +79,7 @@ router.get('/', (req, res) => {
 		} else {
 			var returnArr = [];
 			data.forEach(task => {
-				if (task.status.active === true)
+				if (task.status.active === true && task.status.pending === false && task.status.done === false)
 					returnArr.push(task);
 			});
 			res.json(returnArr);
@@ -66,7 +94,7 @@ router.get('/closed', (req, res) => {
 		} else {
 			var returnArr = [];
 			data.forEach(task => {
-				if (task.active === false)
+				if (task.status.done === true)
 					returnArr.push(task);
 			});
 			res.json(returnArr);
@@ -74,12 +102,12 @@ router.get('/closed', (req, res) => {
 	});
 });
 
-router.patch("/updateStatus/:_id", (req, res) =>{
+router.patch("/mobile/updateStatus/:_id", (req, res) =>{
 
 	var id = { _id: req.params._id }
 	var updatedStatus = {...req.body};
 	var allowedUpdate = 0;
-
+	console.log(updatedStatus)
 	for (const key in updatedStatus) {
 		if (Object.hasOwnProperty.call(updatedStatus, key)) {
 			const element = updatedStatus[key];
@@ -92,7 +120,38 @@ router.patch("/updateStatus/:_id", (req, res) =>{
 		taskModel.findByIdAndUpdate(
 			id, 
 			{status: updatedStatus},
-			{ upsert: true, setDefaultsOnInsert: true }, 
+			(err) => {
+				if (err) {
+					return res.send(err);
+				} 
+				else {
+					return res.send({ message: `updated task`});		
+				}
+			}
+		)
+	}
+	else {
+		res.status(400).send({ message: `bad request`});		
+	}
+});
+router.patch("/done/:_id", (req, res) =>{
+
+	var id = { _id: req.params._id }
+	var updatedStatus = {...req.body};
+	var allowedUpdate = 0;
+	console.log(updatedStatus)
+	for (const key in updatedStatus) {
+		if (Object.hasOwnProperty.call(updatedStatus, key)) {
+			const element = updatedStatus[key];
+			if(element)
+				allowedUpdate++;
+		}
+	}
+
+	if(allowedUpdate === 1) {
+		taskModel.findByIdAndUpdate(
+			id, 
+			{status: updatedStatus},
 			(err) => {
 				if (err) {
 					return res.send(err);

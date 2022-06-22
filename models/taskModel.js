@@ -20,7 +20,7 @@ const Task = mongoose.model(
         user_id: String,
         name: String
     },
-    planned_date:  String,
+    planned_date: String,
     location: {
         name: String,
         long: Number,
