@@ -44,29 +44,34 @@ router.post('/create', (req, res) => {
 	});
 });
 
-router.get('/mobile/', (req, res) => {
+router.get('/mobile/:_id', (req, res) => {
+	var id = req.params._id; 
+	console.log(id)
 	taskModel.find({}, (err, data) => {
 		if (err) {
 			res.json(err);
 		} else {
 			var returnArr = [];
 			data.forEach(task => {
-				if (task.status.pending === false && task.status.done === false)
-					returnArr.push(task);
+				if(task.assignee.user_id === id)
+					if (task.status.pending === false && task.status.done === false)
+						returnArr.push(task);
 			});
 			res.json(returnArr);
 		}
 	});
 });
-router.get('/mobile/pending', (req, res) => {
+router.get('/mobile/pending/:_id', (req, res) => {
+	var id = req.params._id; 
 	taskModel.find({}, (err, data) => {
 		if (err) {
 			res.json(err);
 		} else {
 			var returnArr = [];
 			data.forEach(task => {
-				if (task.status.active === false && task.status.pending === true && task.status.done === false)
-					returnArr.push(task);
+				if(task.assignee.user_id === id)
+					if (task.status.active === false && task.status.pending === true && task.status.done === false)
+						returnArr.push(task);
 			});
 			res.json(returnArr);
 		}
