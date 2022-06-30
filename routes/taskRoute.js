@@ -10,6 +10,7 @@ router.post('/create', (req, res) => {
 		estimated_time: req.body.estimated_time,
 		expiry_date: req.body.expiry_date,
 		note: req.body.note,
+		timer: "",
 		assigned_to_machine: {
 			id_machine: req.body.assigned_to_machine.id_machine,
 			name: req.body.assigned_to_machine.name
@@ -106,6 +107,26 @@ router.get('/closed', (req, res) => {
 		}
 	});
 });
+
+router.patch("/mobile/endTimer/:_id", (req, res) =>{
+
+	var id = { _id: req.params._id }
+	var timer = req.body.timer;
+
+	taskModel.findByIdAndUpdate(
+		id, 
+		{timer: timer},
+		(err) => {
+			if (err) {
+				return res.send(err);
+			} 
+			else {
+				return res.send({ message: `updated task`});		
+			}
+		}
+	)
+});
+
 
 router.patch("/mobile/updateStatus/:_id", (req, res) =>{
 
