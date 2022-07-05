@@ -83,6 +83,6 @@ app.use('/api/machine', machineRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/dialog', dialogRoutes);
 app.use('/api/upload', imageRoute);
-// app.get('/*', function (req, res) {
-// 	res.sendFile(path.join("/var/www/html/PlastTec_client", 'build', 'index.html'));
-//   });
+app.get('/*', function (req, res) {
+	res.sendFile(path.join("/var/www/html/PlastTec_client", 'build', 'index.html'));
+  });
