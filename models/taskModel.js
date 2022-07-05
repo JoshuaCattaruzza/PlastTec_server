@@ -9,6 +9,7 @@ const Task = mongoose.model(
     expiry_date: String,
     note: String,
     timer: String,
+    image_url: String,
     assigned_to_machine: {
         id_machine: String,
         name: String
