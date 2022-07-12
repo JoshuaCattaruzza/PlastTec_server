@@ -11,6 +11,7 @@ const authRoutes = require('./routes/authRoute');
 const machineRoutes = require('./routes/machineRoute');
 const dialogRoutes = require("./routes/dialogRoute");
 const imageRoute = require("./routes/imageRoute");
+const notificationRoute = require("./routes/notificationRoute");
 //----------IMPORT OF CONFIGS ANF MODELS---------------------------------------
 const PORT = process.env.PORT || 4201;
 const dbConfig = require('./config/dbConfig');
@@ -68,7 +69,7 @@ function initial() {
 			});
 		}
 	});
-}
+};
 //----------SERVER--------------------------------------------------------------
 const app = express();
 app.listen(PORT, () => console.log('Listening on port ' + PORT)); //listen accetta due param, il primo specifica la potra su cui ascolta il secondo può essere una funzione
@@ -83,6 +84,4 @@ app.use('/api/machine', machineRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/dialog', dialogRoutes);
 app.use('/api/upload', imageRoute);
-app.get('/*', function (req, res) {
-	res.sendFile(path.join("/var/www/html/PlastTec_client", 'build', 'index.html'));
-  });
+app.use('/api/notification', notificationRoute);

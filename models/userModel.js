@@ -5,6 +5,10 @@ const User = mongoose.model(
 	new mongoose.Schema({
 		username: String,
 		password: String,
+		notification:{
+			hasNotification: Boolean,
+			text: String
+		},
 		roles: [
 			{
 				type: mongoose.Schema.Types.ObjectId,

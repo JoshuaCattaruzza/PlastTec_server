@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const taskModel = require('../models/taskModel');
+const { authJwt } = require('../middleware');
+// const controller = require('../controllers/userController');
 
+// router.use([authJwt.verifyToken]);
 
 router.post('/create', (req, res) => {
 	const Task = {
@@ -10,6 +13,7 @@ router.post('/create', (req, res) => {
 		estimated_time: req.body.estimated_time,
 		expiry_date: req.body.expiry_date,
 		note: req.body.note,
+		image_url: "",
 		timer: "",
 		assigned_to_machine: {
 			id_machine: req.body.assigned_to_machine.id_machine,
@@ -92,7 +96,6 @@ router.get('/', (req, res) => {
 		}
 	});
 });
-
 router.get('/closed', (req, res) => {
 	taskModel.find({}, (err, data) => {
 		if (err) {
@@ -107,7 +110,6 @@ router.get('/closed', (req, res) => {
 		}
 	});
 });
-
 router.patch("/mobile/endTimer/:_id", (req, res) =>{
 
 	var id = { _id: req.params._id }
@@ -126,8 +128,6 @@ router.patch("/mobile/endTimer/:_id", (req, res) =>{
 		}
 	)
 });
-
-
 router.patch("/mobile/updateStatus/:_id", (req, res) =>{
 
 	var id = { _id: req.params._id }
@@ -192,7 +192,6 @@ router.patch("/done/:_id", (req, res) =>{
 		res.status(400).send({ message: `bad request`});		
 	}
 });
-
 router.delete('/:_id', (req, res) => {
 	const Task = req.params._id;
 	console.log(Task)

@@ -101,6 +101,10 @@ exports.signin = (req, res) => {
 				username: user.username,
 				roles: authorities,
 				accessToken: token,
+				notification: {
+					hasNotification: user.notification.hasNotification,
+					text: user.notification.text
+				}
 			});
 		});
 };

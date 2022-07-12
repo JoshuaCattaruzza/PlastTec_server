@@ -15,7 +15,8 @@ const uploadFiles = async (req, res) => {
         message: "error",
       });
     }
-    var id = req.body.task_id
+    var id = req.body.task_id;
+    console.log(id);
     taskModel.findByIdAndUpdate(
       id, 
       {image_url: baseUrl+res.req.file.filename},
