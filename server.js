@@ -74,7 +74,8 @@ function initial() {
 const app = express();
 app.listen(PORT, () => console.log('Listening on port ' + PORT)); //listen accetta due param, il primo specifica la potra su cui ascolta il secondo può essere una funzione
 app.use(cors(corsOptions)); //Passing cors options to cors and app
-app.use(express.static(path.join("/var/www/html/PlastTec_client", 'build')));
+app.use("/dashboard", express.static(path.join("/var/www/html/PlastTec_client", 'build')));
+app.use("/mobileapp", express.static(path.join("/var/www/html/PlastTec_mobile", 'build')));
 app.use(express.json({ limit: '1mb' })); //Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing.
 app.use(bodyparser.json()); //per convertire direttamente l'input in JSON cosi non besetemmio a salvare i dati nel db
 app.use(bodyparser.urlencoded({ extended: true }));
