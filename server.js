@@ -76,6 +76,13 @@ app.listen(PORT, () => console.log('Listening on port ' + PORT)); //listen accet
 app.use(cors(corsOptions)); //Passing cors options to cors and app
 app.use("/dashboard", express.static(path.join("/var/www/html/PlastTec_client", 'build')));
 app.use("/mobileapp", express.static(path.join("/var/www/html/PlastTec_mobile", 'build')));
+app.get('dashboard/*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/var/www/html/PlastTec_client/build/index.html'))
+  })
+  
+  app.get('mobileapp/*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/var/www/html/PlastTec_mobile/build/index.html'));
+  });
 app.use(express.json({ limit: '1mb' })); //Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing.
 app.use(bodyparser.json()); //per convertire direttamente l'input in JSON cosi non besetemmio a salvare i dati nel db
 app.use(bodyparser.urlencoded({ extended: true }));
